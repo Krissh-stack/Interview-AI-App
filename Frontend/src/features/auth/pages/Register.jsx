@@ -4,7 +4,6 @@ import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
 
 const Register = () => {
-
     const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -30,11 +29,15 @@ const Register = () => {
 
         setSubmitting(true)
         try {
-            const result = await handleRegister({ username, email, password })
-            if (result?.user) {
+            const result = await handleRegister({ 
+                username: username.trim(), 
+                email: email.trim(), 
+                password 
+            })
+            if (result.success && result.user) {
                 navigate("/")
             } else {
-                setError("Registration failed. That username or email may already be in use.")
+                setError(result.error || "Registration failed. Please try a different username or email.")
             }
         } catch (err) {
             setError("Registration failed. Please try again.")
@@ -50,7 +53,7 @@ const Register = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#ff2d78">
                         <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
                     </svg>
-                    <h1>Create your account</h1>
+                    <h1>Create Your Account</h1>
                     <p>Start your AI-powered interview prep today</p>
                 </div>
 
@@ -75,6 +78,7 @@ const Register = () => {
                             placeholder='e.g. john_doe'
                             disabled={submitting}
                             autoComplete="username"
+                            required
                         />
                     </div>
                     <div className="input-group">
@@ -88,6 +92,7 @@ const Register = () => {
                             placeholder='you@example.com'
                             disabled={submitting}
                             autoComplete="email"
+                            required
                         />
                     </div>
                     <div className="input-group">
@@ -101,6 +106,7 @@ const Register = () => {
                             placeholder='Min. 6 characters'
                             disabled={submitting}
                             autoComplete="new-password"
+                            required
                         />
                     </div>
 

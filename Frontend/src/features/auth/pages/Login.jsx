@@ -4,7 +4,6 @@ import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
 
 const Login = () => {
-
     const { handleLogin } = useAuth()
     const navigate = useNavigate()
 
@@ -24,14 +23,14 @@ const Login = () => {
 
         setSubmitting(true)
         try {
-            const result = await handleLogin({ email, password })
-            if (result?.user) {
+            const result = await handleLogin({ email: email.trim(), password })
+            if (result.success && result.user) {
                 navigate('/')
             } else {
-                setError("Invalid email or password.")
+                setError(result.error || "Invalid email or password.")
             }
         } catch (err) {
-            setError("Login failed. Please try again.")
+            setError("Login failed. Please check your credentials.")
         } finally {
             setSubmitting(false)
         }
@@ -44,8 +43,8 @@ const Login = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#ff2d78">
                         <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
                     </svg>
-                    <h1>Welcome back</h1>
-                    <p>Sign in to continue your interview prep</p>
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to your InterviewAI dashboard</p>
                 </div>
 
                 {error && (
@@ -69,6 +68,7 @@ const Login = () => {
                             placeholder='you@example.com'
                             disabled={submitting}
                             autoComplete="email"
+                            required
                         />
                     </div>
                     <div className="input-group">
@@ -82,6 +82,7 @@ const Login = () => {
                             placeholder='Enter your password'
                             disabled={submitting}
                             autoComplete="current-password"
+                            required
                         />
                     </div>
                     <button

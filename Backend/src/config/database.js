@@ -1,14 +1,11 @@
 const mongoose = require("mongoose")
 
 async function connectToDB() {
-    if (!process.env.MONGO_URI) {
-        console.warn("⚠️ [database] MONGO_URI is not set in .env. Please configure MONGO_URI in Backend/.env to persist interviews.")
-        return
-    }
+    const uri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/interview-ai"
 
     try {
-        await mongoose.connect(process.env.MONGO_URI)
-        console.log("✅ [database] Successfully connected to MongoDB")
+        await mongoose.connect(uri)
+        console.log(`✅ [database] Successfully connected to MongoDB at ${uri}`)
     } catch (err) {
         console.error("❌ [database] Failed to connect to MongoDB:", err.message)
     }
