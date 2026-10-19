@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
@@ -11,15 +12,21 @@ app.use(cors({
     credentials: true
 }))
 
+// Healthcheck endpoint
+app.get("/api/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        service: "InterviewAI API",
+        timestamp: new Date().toISOString()
+    })
+})
+
 /* require all the routes here */
 const authRouter = require("./routes/auth.routes")
 const interviewRouter = require("./routes/interview.routes")
 
-
 /* using all the routes here */
 app.use("/api/auth", authRouter)
 app.use("/api/interview", interviewRouter)
-
-
 
 module.exports = app

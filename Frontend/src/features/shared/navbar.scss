@@ -1,0 +1,78 @@
+$bg-nav: #0d1117;
+$bg-nav-border: #2a3348;
+$text-primary: #e6edf3;
+$text-muted: #7d8590;
+$accent: #ff2d78;
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: $bg-nav;
+    border-bottom: 1px solid $bg-nav-border;
+    backdrop-filter: blur(8px);
+
+    &__inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0.85rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: $accent;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: -0.02em;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.85;
+        }
+
+        span {
+            color: #e6edf3;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        color: $text-muted;
+    }
+
+    &__logout {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: none;
+        border: 1px solid $bg-nav-border;
+        border-radius: 0.5rem;
+        color: $text-muted;
+        padding: 0.4rem 0.85rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+        font-family: inherit;
+        transition: border-color 0.2s, color 0.2s;
+
+        &:hover {
+            border-color: $accent;
+            color: $accent;
+        }
+    }
+}
